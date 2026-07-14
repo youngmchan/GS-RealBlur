@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="GS-RealBlur: a flexible data acquisition framework for real-world image deblurring.">
+    <title>GS-RealBlur</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+  </head>
+  <body>
+    <main class="page project-page gaussian-shell">
+      <header class="paper-header publication-header">
+        <p class="eyebrow">Real-World Image Deblurring</p>
+        <h1><span class="title-accent">GS-RealBlur</span>: A Flexible Data Acquisition Framework for Real-World Image Deblurring</h1>
+        <p class="authors">Mingyang Chen, Zhilu Zhang, Honglei Xu, Renlong Wu, Xiaohe Wu, Wangmeng Zuo</p>
+        <p class="affiliation">Harbin Institute of Technology, Harbin, China</p>
+        <div class="resource-links">
+          <a class="paper-link" href="assets/paper/GS-RealBlur.pdf" target="_blank" rel="noopener">📄 Paper (PDF)</a>
+          <a class="paper-link" href="https://github.com/YngMgC/GS-RealBlur" target="_blank" rel="noopener" aria-label="GitHub Code"><svg class="github-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0a8 8 0 0 0-2.53 15.59c.4.07.55-.17.55-.38v-1.49c-2.23.49-2.7-.95-2.7-.95-.36-.93-.89-1.18-.89-1.18-.73-.5.06-.49.06-.49.81.06 1.23.83 1.23.83.72 1.23 1.89.88 2.35.67.07-.52.28-.88.51-1.08-1.78-.2-3.65-.89-3.65-3.96 0-.88.31-1.59.83-2.15-.08-.2-.36-1.02.08-2.13 0 0 .68-.22 2.2.82A7.7 7.7 0 0 1 8 3.87a7.7 7.7 0 0 1 2.01.27c1.53-1.04 2.2-.82 2.2-.82.44 1.11.16 1.93.08 2.13.52.56.83 1.27.83 2.15 0 3.08-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.14.46.55.38A8 8 0 0 0 8 0Z" fill="currentColor"/></svg>Code</a>
+        </div>
+      </header>
+
+      <section id="abstract" class="template-section research-section" aria-labelledby="abstract-title">
+        <div class="paper-card abstract-card">
+          <h2 id="abstract-title">Abstract</h2>
+          <p>High-quality, large-scale paired data is essential for training learning-based image deblurring models. However, synthetic blurry images generally lack realism, while real-world captured images require complex and inflexible camera systems. In this work, we propose GS-RealBlur, a data acquisition framework for real-world image deblurring, achieving both blur realism and acquisition flexibility. Specifically, we use a handheld camera to capture blurry images, and deploy a gimbal to densely capture sharp images of the same scene. We reconstruct the 3D representation of sharp images and calibrate the camera pose of each blurry frame within this 3D. The image rendered from this 3D according to the pose serves as the sharp counterpart. To better align the rendered image with the blurry image, we introduce a Blur-aware Pose Refinement (BPR) module that refines the pose using appearance consistency and centroid alignment constraints. Leveraging GS-RealBlur, we construct a high-quality and diverse dataset. Extensive experiments demonstrate that a deblurring model trained on our dataset achieves superior generalization performance across various real-world deblurring benchmarks, consistently outperforming models trained on existing synthetic and real-world datasets.</p>
+        </div>
+      </section>
+
+      <section id="difference" class="template-section research-section" aria-labelledby="difference-title">
+        <div class="paper-card comparison-card">
+          <h2 id="difference-title">What Makes GS-RealBlur Different?</h2>
+          <p>Existing paired-data pipelines face a trade-off between blur realism and acquisition flexibility. Robot-arm and beam-splitter systems capture real blur but rely on specialized, non-portable hardware, whereas synthetic pipelines do not directly reproduce the physical blur-formation process. In contrast, GS-RealBlur captures real-world blur using portable consumer-grade devices (\eg, smartphones) and employs 3DGS to render spatially aligned sharp supervision, thereby achieving both blur realism and flexible acquisition.</p>
+          <figure>
+            <img src="assets/images/real-world-blur.png" alt="Comparison of robot-arm, beam-splitter, synthetic, and GS-RealBlur data-acquisition pipelines">
+            <figcaption>GS-RealBlur bridges blur realism and acquisition flexibility.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section id="method" class="template-section research-section" aria-labelledby="method-title">
+        <div class="paper-card method-card">
+          <h2 id="method-title">Method Overview</h2>
+          <p>GS-RealBlur first densely capture sharp-view videos with gimbal to provide sufficient scene observations for 3DGS reconstruction. 
+          Then real-world blurry images are captured in handheld mode within the spatial range covered by sharp videos.
+          The sharp frames are used to reconstruct a 3DGS representation, while each blurry frame is initially localized within the reconstructed scene using GLOMAP.
+          Since blur degrades feature matching and leads to inaccurate pose estimation, we further introduce BPR to refine the camera pose by jointly enforcing appearance loss and blur-kernel centroid regularizer. The optimized pose is then used to render a spatially aligned sharp image, enabling flexible acquisition of high-quality blurry--sharp pairs while preserving real-world blur.</p>
+          <figure>
+            <img src="assets/images/pipeline.png" alt="GS-RealBlur capture, reconstruction, and Blur-aware Pose Refinement pipeline">
+            <figcaption>Handheld blur capture, multi-view sharp reconstruction, and Blur-aware Pose Refinement(BPR) form the acquisition pipeline.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section id="experiments" class="template-section research-section" aria-labelledby="experiments-title">
+        <h2 id="experiments-title">Deblurring Experiments</h2>
+
+        <article class="paper-card experiment-card" aria-labelledby="cross-dataset-title">
+          <h3 id="cross-dataset-title">Cross-Dataset Generalization</h3>
+          <p>Models trained on existing datasets exhibit substantial performance degradation across different real-world benchmarks, revealing a severe domain gap. 
+            In contrast, GS-RealBlur achieves the <td class="best-cell">best</td> average cross-domain performance and consistently produces high-quality results on both benchmark and in-the-wild datasets.</p>
+          <div id="results-carousel"></div>
+        </article>
+
+        <article class="paper-card experiment-card" aria-labelledby="qualitative-title">
+          <h3 id="qualitative-title">Qualitative Results</h3>
+          <p>Visual comparisons from the cross-dataset, OOD, and supplementary experiments are collected below.</p>
+          <div id="qualitative-carousel"></div>
+        </article>
+
+        <article class="paper-card experiment-card bpr-card" aria-labelledby="bpr-title">
+          <h3 id="bpr-title">BPR Ablation</h3>
+          <p>
+            Blur weakens feature matching and makes SfM pose estimates unreliable. 
+            BPR refines each inaccurate pose with learnable rotation and translation offsets, optimized by appearance consistency and blur-kernel centroid alignment.
+            The appearance consistency loss mainly reduces rotation error, while centroid alignment regularizer primarily corrects translation error, and their combination achieves the best pose accuracy and deblurring performance.
+          </p>
+          <div class="table-wrap">
+            <table class="results-table bpr-results-table">
+              <caption>Ablation on Loss Terms in BPR. </caption>
+              <thead><tr><th scope="col">L<sub>appearance</sub></th><th scope="col">L<sub>centroid</sub></th><th scope="col">Pose Error<br>TE / RE</th><th scope="col">RealBlur</th><th scope="col">RBVD</th><th scope="col">RSBlur</th><th scope="col">BSD</th></tr></thead>
+              <tbody>
+                <tr><th scope="row"><span class="toggle-off">×</span></th><td><span class="toggle-off">×</span></td><td>1.036 / 1.102</td><td>27.38 / .880</td><td>26.46 / .899</td><td>32.61 / .854</td><td>31.42 / .930</td></tr>
+                <tr><th scope="row"><span class="toggle-on">✓</span></th><td><span class="toggle-off">×</span></td><td>0.702 / 0.503</td><td>27.52 / .884</td><td>26.63 / .907</td><td>32.95 / .858</td><td>31.59 / .935</td></tr>
+                <tr><th scope="row"><span class="toggle-off">×</span></th><td><span class="toggle-on">✓</span></td><td>0.452 / 0.841</td><td>27.43 / .883</td><td>26.52 / .903</td><td>32.75 / .856</td><td>31.51 / .934</td></tr>
+                <tr><th scope="row"><span class="toggle-on">✓</span></th><td><span class="toggle-on">✓</span></td><td class="best-cell">0.445 / 0.479</td><td class="best-cell">27.57 / .885</td><td class="best-cell">26.67 / .908</td><td class="best-cell">33.13 / .861</td><td class="best-cell">31.63 / .936</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <figure>
+            <img src="assets/images/BPR_compare.png" alt="Alignment improvement from Blur-aware Pose Refinement">
+            <figcaption>BPR reduces spatial misalignment.</figcaption>
+          </figure>
+        </article>
+
+        
+      </section>
+
+      <section id="dataset-samples" class="template-section research-section" aria-labelledby="samples-title">
+        <div class="paper-card samples-card">
+          <h2 id="samples-title">Dataset Patch Samples</h2>
+          <p>Drag each divider to compare the blurry observation with its aligned ground truth.</p>
+          <div class="sample-grid" aria-label="Interactive blur and ground-truth dataset samples">
+            <article class="sample-comparison" data-blur-src="assets/images/samples/002_00039_patch_8.png" data-gt-src="assets/images/samples/gt/002_00039_patch_8.png" data-sample-name="Sample 01"></article>
+            <article class="sample-comparison" data-blur-src="assets/images/samples/kaola_00045_patch18.png" data-gt-src="assets/images/samples/gt/kaola_00045_patch18.png" data-sample-name="Sample 02"></article>
+            <article class="sample-comparison" data-blur-src="assets/images/samples/lipai_00008_patch_2.png" data-gt-src="assets/images/samples/gt/lipai_00008_patch_2.png" data-sample-name="Sample 03"></article>
+            <article class="sample-comparison" data-blur-src="assets/images/samples/milk_00005_patch_7.png" data-gt-src="assets/images/samples/gt/milk_00005_patch_7.png" data-sample-name="Sample 04"></article>
+            
+            <article class="sample-comparison" data-blur-src="assets/images/samples/009_00274_patch_0.png" data-gt-src="assets/images/samples/gt/009_00274_patch_0.png" data-sample-name="Sample 05"></article>
+            <article class="sample-comparison" data-blur-src="assets/images/samples/kaola_00045_patch11.png" data-gt-src="assets/images/samples/gt/kaola_00045_patch11.png" data-sample-name="Sample 06"></article>
+            <article class="sample-comparison" data-blur-src="assets/images/samples/meeting-room_00013_patch_7.png" data-gt-src="assets/images/samples/gt/meeting-room_00013_patch_7.png" data-sample-name="Sample 07"></article>
+            <article class="sample-comparison" data-blur-src="assets/images/samples/020_00197_patch_7.png" data-gt-src="assets/images/samples/gt/020_00197_patch_7.png" data-sample-name="Sample 08"></article>
+
+            <article class="sample-comparison" data-blur-src="assets/images/samples/009_00275_patch_3.png" data-gt-src="assets/images/samples/gt/009_00275_patch_3.png" data-sample-name="Sample 09"></article>
+            <article class="sample-comparison" data-blur-src="assets/images/samples/019_00008_patch_10.png" data-gt-src="assets/images/samples/gt/019_00008_patch_10.png" data-sample-name="Sample 10"></article>
+            <article class="sample-comparison" data-blur-src="assets/images/samples/corn_00009_patch_7.png" data-gt-src="assets/images/samples/gt/corn_00009_patch_7.png" data-sample-name="Sample 11"></article>
+            <article class="sample-comparison" data-blur-src="assets/images/samples/020_00123_patch_8.png" data-gt-src="assets/images/samples/gt/020_00123_patch_8.png" data-sample-name="Sample 12"></article>
+            
+            <article class="sample-comparison" data-blur-src="assets/images/samples/074_00085_patch_6.png" data-gt-src="assets/images/samples/gt/074_00085_patch_6.png" data-sample-name="Sample 13"></article>
+            <article class="sample-comparison" data-blur-src="assets/images/samples/008_00330_patch_7.png" data-gt-src="assets/images/samples/gt/008_00330_patch_7.png" data-sample-name="Sample 14"></article>
+            <article class="sample-comparison" data-blur-src="assets/images/samples/jiankong_00169_patch_10.png" data-gt-src="assets/images/samples/gt/jiankong_00169_patch_10.png" data-sample-name="Sample 15"></article>
+            <article class="sample-comparison" data-blur-src="assets/images/samples/white-car-2_00117_patch_4.png" data-gt-src="assets/images/samples/gt/white-car-2_00117_patch_4.png" data-sample-name="Sample 16"></article>
+            
+            <article class="sample-comparison" data-blur-src="assets/images/samples/SF-line_00173_patch4.png" data-gt-src="assets/images/samples/gt/SF-line_00173_patch4.png" data-sample-name="Sample 17"></article>
+            <article class="sample-comparison sample-crop-top" data-blur-src="assets/images/samples/nigemaiti_00049_patch_1.png" data-gt-src="assets/images/samples/gt/nigemaiti_00049_patch_1.png" data-sample-name="Sample 18"></article>
+            <article class="sample-comparison" data-blur-src="assets/images/samples/milk_00078_patch_4.png" data-gt-src="assets/images/samples/gt/milk_00078_patch_4.png" data-sample-name="Sample 19"></article> 
+            <article class="sample-comparison" data-blur-src="assets/images/samples/2b-car_00021_patch18.png" data-gt-src="assets/images/samples/gt/2b-car_00021_patch18.png" data-sample-name="Sample 20"></article>
+            
+          </div>
+        </div>
+      </section>
+
+      <footer class="page-footer"><a href="assets/paper/GS-RealBlur.pdf" target="_blank" rel="noopener">Read the full paper</a><span aria-hidden="true"> · </span><a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank" rel="noopener">Academic Project Page Template</a></footer>
+    </main>
+    <script src="assets/js/results-carousel.js"></script>
+    <script src="assets/js/sample-comparison.js"></script>
+  </body>
+</html>
