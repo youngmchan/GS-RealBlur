@@ -16,6 +16,7 @@ $required = @(
   'class="paper-card method-card"',
   'class="paper-card experiment-card"',
   'id="results-carousel"',
+  'id="ood-results"',
   'assets/js/results-carousel.js',
   'id="abstract"',
   'id="difference"',
@@ -47,10 +48,13 @@ if ($positions -contains -1 -or (($positions -join ',') -ne ($sortedPositions -j
   throw 'Page sections are not in the approved order.'
 }
 
+$crossDatasetStart = $page.IndexOf('id="cross-dataset-title"')
+$oodStart = $page.IndexOf('id="ood-title"')
 $qualitativeStart = $page.IndexOf('id="qualitative-title"')
 $bprStart = $page.IndexOf('id="bpr-title"')
-if ($qualitativeStart -lt 0 -or $bprStart -lt 0) { throw 'Missing qualitative or BPR card.' }
-if ($page -match 'id="ood-title"' -or $page -match 'carousel-count') { throw 'Removed OOD card or carousel counter is still present.' }
+if ($crossDatasetStart -lt 0 -or $oodStart -lt 0 -or $qualitativeStart -lt 0 -or $bprStart -lt 0) { throw 'Missing cross-dataset, OOD, qualitative, or BPR card.' }
+if (($crossDatasetStart -ge $oodStart) -or ($oodStart -ge $qualitativeStart)) { throw 'OOD card must follow cross-dataset results and precede qualitative results.' }
+if ($page -match 'carousel-count') { throw 'Carousel counter is still present.' }
 if ($page -match 'Dataset samples will be added here.') { throw 'Dataset sample placeholders are still present.' }
 $sampleCardCount = ([regex]::Matches($page, '<article class="[^"]*sample-comparison')).Count
 if ($sampleCardCount -ne 20) { throw "Expected 20 curated dataset samples, found $sampleCardCount." }

@@ -74,6 +74,7 @@ figcaption { padding: 10px 2px 0; color: var(--muted); font-size: .92rem; line-h
 .carousel-stage { position: relative; margin-top: 24px; outline: none; }
 .carousel-surface { min-height: 360px; }
 .carousel-surface h4 { margin: 0 0 12px; color: var(--ink); font-size: 1.16rem; font-weight: 600; text-align: center; }
+#ood-results > h4 { margin: 24px 0 12px; color: var(--ink); font-size: 1.16rem; font-weight: 600; text-align: center; }
 .carousel-control { position: absolute; top: 50%; z-index: 1; width: 46px; height: 46px; border: 1px solid var(--action-color); border-radius: 50%; background: var(--action-color); color: #fff; font-size: 1.8rem; line-height: 1; cursor: pointer; }
 .carousel-control:hover, .carousel-control:focus-visible { border-color: #162036; background: #162036; }
 .carousel-control.previous { left: -22px; transform: translateY(-50%); }

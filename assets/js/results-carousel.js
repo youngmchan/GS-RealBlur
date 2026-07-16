@@ -41,22 +41,23 @@ const slides = [
       ['GS-Blur', [t(27.37, .880, .250), t(26.44, .905, .290), t(33.28, .864, .383), t(31.80, .938, .196), t(29.72, .897, .280)]],
       ['GS-RealBlur', [t(27.82, .887, .243), t(26.96, .911, .277), t(33.48, .866, .380), t(32.17, .942, .193), t(30.11, .902, .273)]]
     ]
-  },
-  {
-    type: 'ood',
-    title: 'OOD No-Reference Evaluation',
-    caption: 'In-the-wild evaluation. Higher is better for all reported metrics.',
-    columns: ['RWBI MUSIQ', 'RWBI MANIQA', 'RWBI CLIP-IQA', 'DVD-Test MUSIQ', 'DVD-Test MANIQA', 'DVD-Test CLIP-IQA'],
-    rows: [
-      ['RealBlur', [58.552, .266, .341, 45.040, .231, .290]],
-      ['RBVD', [52.014, .258, .313, 40.970, .206, .224]],
-      ['RSBlur', [57.929, .264, .335, 41.132, .217, .274]],
-      ['BSD', [58.104, .273, .336, 40.595, .214, .275]],
-      ['GS-Blur', [61.330, .295, .367, 45.371, .235, .284]],
-      ['GS-RealBlur', [61.610, .300, .372, 46.604, .242, .294]]
-    ]
   }
 ];
+
+const oodSlide = {
+  type: 'ood',
+  title: 'OOD No-Reference Evaluation',
+  caption: 'In-the-wild evaluation. Higher is better for all reported metrics.',
+  columns: ['RWBI MUSIQ', 'RWBI MANIQA', 'RWBI CLIP-IQA', 'DVD-Test MUSIQ', 'DVD-Test MANIQA', 'DVD-Test CLIP-IQA'],
+  rows: [
+    ['RealBlur', [58.552, .266, .341, 45.040, .231, .290]],
+    ['RBVD', [52.014, .258, .313, 40.970, .206, .224]],
+    ['RSBlur', [57.929, .264, .335, 41.132, .217, .274]],
+    ['BSD', [58.104, .273, .336, 40.595, .214, .275]],
+    ['GS-Blur', [61.330, .295, .367, 45.371, .235, .284]],
+    ['GS-RealBlur', [61.610, .300, .372, 46.604, .242, .294]]
+  ]
+};
 
 function advanceIndex(index, delta, count) {
   return (index + delta + count) % count;
@@ -106,7 +107,7 @@ function initializeCarousel() {
 
   const render = () => {
     const slide = slides[index];
-    surface.innerHTML = `<h4>${slide.title}</h4>${slide.type === 'cross' ? crossHtml(slide) : oodHtml(slide)}`;
+    surface.innerHTML = `<h4>${slide.title}</h4>${crossHtml(slide)}`;
   };
   const move = (delta) => { index = advanceIndex(index, delta, slides.length); render(); };
 
@@ -119,12 +120,17 @@ function initializeCarousel() {
   render();
 }
 
+function initializeOodResults() {
+  const mount = document.querySelector('#ood-results');
+  if (!mount) return;
+  mount.innerHTML = `<h4>${oodSlide.title}</h4>${oodHtml(oodSlide)}`;
+}
+
 function initializeQualitativeCarousel() {
   const mount = document.querySelector('#qualitative-carousel');
   if (!mount) return;
   const images = [
     ['assets/images/metric.png', 'Cross-dataset visual comparison.'],
-    ['assets/images/nr-metric.png', 'OOD visual comparison.'],
     ['assets/images/more-metric-visual.png', 'Additional qualitative comparison.']
   ];
   let index = 0;
@@ -140,7 +146,7 @@ function initializeQualitativeCarousel() {
 }
 
 if (typeof globalThis !== 'undefined') {
-  globalThis.ResultsCarousel = { slides, advanceIndex, crossRankClass, rankValues };
+  globalThis.ResultsCarousel = { slides, oodSlide, advanceIndex, crossRankClass, rankValues };
 }
 
-if (typeof document !== 'undefined') { initializeCarousel(); initializeQualitativeCarousel(); }
+if (typeof document !== 'undefined') { initializeCarousel(); initializeOodResults(); initializeQualitativeCarousel(); }
