@@ -53,11 +53,11 @@ $oodStart = $page.IndexOf('id="ood-title"')
 $qualitativeStart = $page.IndexOf('id="qualitative-title"')
 $bprStart = $page.IndexOf('id="bpr-title"')
 if ($crossDatasetStart -lt 0 -or $oodStart -lt 0 -or $qualitativeStart -lt 0 -or $bprStart -lt 0) { throw 'Missing cross-dataset, OOD, qualitative, or BPR card.' }
-if (($crossDatasetStart -ge $oodStart) -or ($oodStart -ge $qualitativeStart)) { throw 'OOD card must follow cross-dataset results and precede qualitative results.' }
+if (($crossDatasetStart -ge $qualitativeStart) -or ($qualitativeStart -ge $oodStart)) { throw 'Qualitative Results must follow cross-dataset results and precede the OOD card.' }
 $crossDatasetEnd = $page.IndexOf('</article>', $crossDatasetStart)
-$pairedVisualStart = $page.IndexOf('assets/images/more-metric-visual.png')
-if ($pairedVisualStart -le $crossDatasetStart -or $pairedVisualStart -ge $crossDatasetEnd) { throw 'The supplementary cross-dataset visual must be placed in the cross-dataset card.' }
-if ($page.Substring($qualitativeStart) -match 'more-metric-visual.png') { throw 'The supplementary cross-dataset visual must not remain in Qualitative Results.' }
+if ($page.Substring($crossDatasetStart, $crossDatasetEnd - $crossDatasetStart) -match 'more-metric-visual.png') { throw 'The supplementary visual must not be embedded inside the cross-dataset card.' }
+$carouselSource = Get-Content -LiteralPath (Join-Path $PSScriptRoot '../assets/js/results-carousel.js') -Raw
+if ($carouselSource -notmatch [regex]::Escape('assets/images/more-metric-visual.png')) { throw 'The supplementary cross-dataset visual must remain in the Qualitative Results carousel.' }
 if ($page -match 'carousel-count') { throw 'Carousel counter is still present.' }
 if ($page -match 'Dataset samples will be added here.') { throw 'Dataset sample placeholders are still present.' }
 $sampleCardCount = ([regex]::Matches($page, '<article class="[^"]*sample-comparison')).Count
