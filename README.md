@@ -40,7 +40,7 @@ GS-RealBlur densely captures sharp-view videos with a gimbal for 3DGS reconstruc
 | GS-Blur | 27.33 / 0.879 | 26.26 / 0.904 | 32.87 / 0.860 | 31.37 / 0.934 | 29.46 / 0.895 |
 | GS-RealBlur | 27.67 / 0.886 | 26.71 / 0.910 | 33.15 / 0.863 | 31.92 / 0.939 | **29.86 / 0.900** |
 
-### Qualitative Results
+**Qualitative Results.**
 
 ![Cross-dataset qualitative comparison](https://raw.githubusercontent.com/youngmchan/GS-RealBlur/gh-pages/assets/images/more-metric-visual.png)
 
