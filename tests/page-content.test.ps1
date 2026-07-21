@@ -130,3 +130,6 @@ if ($missingReadme) { throw "README is missing required project-page content: $(
 if ($page -notmatch [regex]::Escape('https://github.com/youngmchan/GS-RealBlur')) { throw 'Page Code button does not link to the published repository.' }
 if ($page -match [regex]::Escape('https://github.com/YngMgC/GS-RealBlur')) { throw 'Page Code button still links to the old repository.' }
 if ($page -match [regex]::Escape('Read the full paper')) { throw 'Footer paper link must be removed.' }
+$bprEnd = $page.IndexOf('</article>', $bprStart)
+$bprContent = $page.Substring($bprStart, $bprEnd - $bprStart)
+if ($bprContent -match ' / \.[0-9]') { throw 'BPR decimal metrics must include a leading zero.' }
