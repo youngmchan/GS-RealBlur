@@ -32,7 +32,7 @@ p { margin: 0 0 16px; }
 .paper-link { display: inline-flex; align-items: center; gap: 8px; padding: 11px 20px; border: 0; border-radius: 14px; background: #1f2a44; box-shadow: 0 4px 8px rgb(31 42 68 / .24); color: #fff; font-size: 1rem; font-weight: 600; text-decoration: none; transition: background .18s ease, box-shadow .18s ease, transform .18s ease; }
 .paper-link:hover, .paper-link:focus-visible { background: #162036; box-shadow: 0 6px 12px rgb(31 42 68 / .28); color: #fff; transform: translateY(-2px); }
 .github-icon { width: 17px; height: 17px; }
-.arxiv-icon { display: inline-block; font-family: "Times New Roman", Times, serif; font-size: 1.25em; font-style: italic; line-height: .8; transform: translateY(-.02em); }
+.arxiv-icon { width: 17px; height: 17px; fill: currentColor; }
 
 .research-section { padding: 52px 0; }
 .research-section + .research-section { border-top: 1px solid var(--soft-line); }

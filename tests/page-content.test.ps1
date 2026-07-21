@@ -35,7 +35,8 @@ $required = @(
   'data-gt-src=',
   'assets/js/sample-comparison.js'
   'https://arxiv.org/abs/2607.15401'
-  'class="arxiv-icon"'
+  '<svg class="arxiv-icon"'
+  'M3.8423 0'
 )
 
 $missing = $required | Where-Object { $page -notmatch [regex]::Escape($_) }
