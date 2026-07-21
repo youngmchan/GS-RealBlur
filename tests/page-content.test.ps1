@@ -110,3 +110,21 @@ $present = $forbidden | Where-Object { $page -match [regex]::Escape($_) }
 if ($present) {
   throw "Found removed page content: $($present -join ', ')"
 }
+
+$readmePath = Join-Path $PSScriptRoot '../README.md'
+if (-not (Test-Path -LiteralPath $readmePath)) { throw 'Missing GitHub homepage README.' }
+$readme = Get-Content -LiteralPath $readmePath -Raw
+$readmeRequired = @(
+  'GS-RealBlur: A Flexible Data Acquisition Framework for Real-World Image Deblurring',
+  'https://youngmchan.github.io/GS-RealBlur/',
+  'https://github.com/youngmchan/GS-RealBlur',
+  'Cross-dataset evaluation with NAFNet',
+  'assets/images/more-metric-visual.png',
+  'Out-of-Distribution Evaluation',
+  'BPR Ablation',
+  'Dataset Patch Samples'
+)
+$missingReadme = $readmeRequired | Where-Object { $readme -notmatch [regex]::Escape($_) }
+if ($missingReadme) { throw "README is missing required project-page content: $($missingReadme -join ', ')" }
+if ($page -notmatch [regex]::Escape('https://github.com/youngmchan/GS-RealBlur')) { throw 'Page Code button does not link to the published repository.' }
+if ($page -match [regex]::Escape('https://github.com/YngMgC/GS-RealBlur')) { throw 'Page Code button still links to the old repository.' }
