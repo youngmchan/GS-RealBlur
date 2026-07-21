@@ -19,13 +19,13 @@ High-quality, large-scale paired data is essential for training learning-based i
 
 Existing paired-data pipelines trade blur realism against acquisition flexibility. Robot-arm and beam-splitter systems capture real blur but depend on specialized, non-portable hardware, while synthetic pipelines do not directly reproduce physical blur formation. GS-RealBlur captures real blur with portable consumer devices and uses 3D Gaussian Splatting to render spatially aligned sharp supervision.
 
-![Comparison of existing paired-data acquisition pipelines and GS-RealBlur](https://youngmchan.github.io/GS-RealBlur/assets/images/real-world-blur.png)
+![Comparison of existing paired-data acquisition pipelines and GS-RealBlur](https://raw.githubusercontent.com/youngmchan/GS-RealBlur/gh-pages/assets/images/real-world-blur.png)
 
 ## Method Overview
 
 GS-RealBlur densely captures sharp-view videos with a gimbal for 3DGS reconstruction, then captures real-world blurry images in handheld mode. GLOMAP provides the initial blurry-frame pose, while Blur-aware Pose Refinement jointly uses appearance consistency and blur-kernel centroid alignment to obtain an aligned sharp rendering.
 
-![GS-RealBlur capture, reconstruction, and Blur-aware Pose Refinement pipeline](https://youngmchan.github.io/GS-RealBlur/assets/images/pipeline.png)
+![GS-RealBlur capture, reconstruction, and Blur-aware Pose Refinement pipeline](https://raw.githubusercontent.com/youngmchan/GS-RealBlur/gh-pages/assets/images/pipeline.png)
 
 ## Experiments
 
@@ -33,17 +33,17 @@ Models trained on existing datasets degrade substantially when evaluated on othe
 
 ### Cross-Dataset Generalization
 
-![Cross-dataset qualitative comparison](https://youngmchan.github.io/GS-RealBlur/assets/images/more-metric-visual.png)
+![Cross-dataset qualitative comparison](https://raw.githubusercontent.com/youngmchan/GS-RealBlur/gh-pages/assets/images/more-metric-visual.png)
 
 ### Out-of-Distribution Evaluation
 
-![OOD visual comparison](https://youngmchan.github.io/GS-RealBlur/assets/images/nr-metric.png)
+![OOD visual comparison](https://raw.githubusercontent.com/youngmchan/GS-RealBlur/gh-pages/assets/images/nr-metric.png)
 
 ### BPR Ablation
 
 Blur weakens feature matching and makes SfM pose estimates unreliable. BPR refines inaccurate poses using learnable rotation and translation offsets optimized by appearance consistency and blur-kernel centroid alignment.
 
-![Alignment improvement from Blur-aware Pose Refinement](https://youngmchan.github.io/GS-RealBlur/assets/images/BPR_compare.png)
+![Alignment improvement from Blur-aware Pose Refinement](https://raw.githubusercontent.com/youngmchan/GS-RealBlur/gh-pages/assets/images/BPR_compare.png)
 
 ## Dataset Patch Samples
 
