@@ -29,24 +29,20 @@ GS-RealBlur densely captures sharp-view videos with a gimbal for 3DGS reconstruc
 
 ## Cross-Dataset Generalization
 
-Models trained on existing datasets degrade substantially when evaluated on other real-world benchmarks. In contrast, GS-RealBlur provides strong cross-dataset generalization. The representative NAFNet results and corresponding visual comparison are shown below. Each value is **PSNR / SSIM / LPIPS**.
-
-**Cross-dataset evaluation with NAFNet. Each cell is PSNR / SSIM / LPIPS.**
+**Cross-dataset evaluation with NAFNet. Each cell is PSNR / SSIM.**
 
 | Training Set | RealBlur | RBVD | RSBlur | BSD | Average |
 | --- | --- | --- | --- | --- | --- |
-| RealBlur | **28.89 / 0.907 / 0.151** | 26.00 / 0.892 / 0.249 | 30.61 / 0.824 / 0.342 | 30.00 / 0.914 / 0.125 | 28.88 / 0.884 / 0.221 |
-| RBVD | 27.16 / 0.863 / 0.228 | 26.51 / 0.907 / 0.231 | 29.59 / 0.793 / 0.388 | 29.36 / 0.907 / 0.136 | 28.16 / 0.867 / 0.246 |
-| RSBlur | 27.23 / 0.871 / 0.180 | 26.36 / 0.905 / 0.234 | **33.72 / 0.877 / 0.310** | 30.78 / 0.923 / 0.119 | 29.54 / 0.894 / 0.211 |
-| BSD | 26.88 / 0.864 / 0.217 | 26.36 / 0.902 / 0.248 | 30.93 / 0.832 / 0.377 | **33.87 / 0.952 / 0.078** | 29.53 / 0.888 / 0.230 |
-| GS-Blur | 27.33 / 0.879 / 0.147 | 26.26 / 0.904 / 0.201 | 32.87 / 0.860 / 0.317 | 31.37 / 0.934 / 0.109 | 29.46 / 0.895 / 0.192 |
-| GS-RealBlur | 27.67 / 0.886 / 0.140 | 26.71 / 0.910 / 0.186 | 33.15 / 0.863 / 0.311 | 31.92 / 0.939 / 0.093 | **29.86 / 0.900 / 0.183** |
+| RealBlur | **28.89 / 0.907** | 26.00 / 0.892 | 30.61 / 0.824 | 30.00 / 0.914 | 28.88 / 0.884 |
+| RBVD | 27.16 / 0.863 | 26.51 / 0.907 | 29.59 / 0.793 | 29.36 / 0.907 | 28.16 / 0.867 |
+| RSBlur | 27.23 / 0.871 | 26.36 / 0.905 | **33.72 / 0.877** | 30.78 / 0.923 | 29.54 / 0.894 |
+| BSD | 26.88 / 0.864 | 26.36 / 0.902 | 30.93 / 0.832 | **33.87 / 0.952** | 29.53 / 0.888 |
+| GS-Blur | 27.33 / 0.879 | 26.26 / 0.904 | 32.87 / 0.860 | 31.37 / 0.934 | 29.46 / 0.895 |
+| GS-RealBlur | 27.67 / 0.886 | 26.71 / 0.910 | 33.15 / 0.863 | 31.92 / 0.939 | **29.86 / 0.900** |
+
+### Qualitative Results
 
 ![Cross-dataset qualitative comparison](https://raw.githubusercontent.com/youngmchan/GS-RealBlur/gh-pages/assets/images/more-metric-visual.png)
-
-### BPR Ablation
-
-![Alignment improvement from Blur-aware Pose Refinement](https://raw.githubusercontent.com/youngmchan/GS-RealBlur/gh-pages/assets/images/BPR_compare.png)
 
 ## Dataset Patch Samples
 
