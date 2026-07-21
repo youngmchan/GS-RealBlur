@@ -34,6 +34,7 @@ $required = @(
   'data-blur-src=',
   'data-gt-src=',
   'assets/js/sample-comparison.js'
+  'https://arxiv.org/abs/2607.15401'
 )
 
 $missing = $required | Where-Object { $page -notmatch [regex]::Escape($_) }
@@ -128,3 +129,4 @@ $missingReadme = $readmeRequired | Where-Object { $readme -notmatch [regex]::Esc
 if ($missingReadme) { throw "README is missing required project-page content: $($missingReadme -join ', ')" }
 if ($page -notmatch [regex]::Escape('https://github.com/youngmchan/GS-RealBlur')) { throw 'Page Code button does not link to the published repository.' }
 if ($page -match [regex]::Escape('https://github.com/YngMgC/GS-RealBlur')) { throw 'Page Code button still links to the old repository.' }
+if ($page -match [regex]::Escape('Read the full paper')) { throw 'Footer paper link must be removed.' }
