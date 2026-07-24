@@ -130,8 +130,8 @@ function initializeQualitativeCarousel() {
   const mount = document.querySelector('#qualitative-carousel');
   if (!mount) return;
   const images = [
-    ['assets/images/metric.png', 'Cross-dataset visual comparison.'],
-    ['assets/images/more-metric-visual.png', 'Additional qualitative comparison.']
+    ['assets/images/metric.jpg', 'Cross-dataset visual comparison.'],
+    ['assets/images/more-metric-visual.jpg', 'Additional qualitative comparison.']
   ];
   let index = 0;
   mount.innerHTML = '<div class="carousel-stage qualitative-stage" tabindex="0" aria-label="Qualitative result images"><button class="carousel-control previous" type="button" aria-label="Show previous qualitative image">&#8249;</button><div class="carousel-surface" aria-live="polite"></div><button class="carousel-control next" type="button" aria-label="Show next qualitative image">&#8250;</button></div>';

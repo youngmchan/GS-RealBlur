@@ -36,7 +36,7 @@
           <h2 id="difference-title">What Makes GS-RealBlur Different?</h2>
           <p>Existing paired-data pipelines face a trade-off between blur realism and acquisition flexibility. Robot-arm and beam-splitter systems capture real blur but rely on specialized, non-portable hardware, whereas synthetic pipelines do not directly reproduce the physical blur-formation process. In contrast, GS-RealBlur captures real-world blur using portable consumer-grade devices (\eg, smartphones) and employs 3DGS to render spatially aligned sharp supervision, thereby achieving both blur realism and flexible acquisition.</p>
           <figure>
-            <img src="assets/images/real-world-blur.png" alt="Comparison of robot-arm, beam-splitter, synthetic, and GS-RealBlur data-acquisition pipelines">
+            <img src="assets/images/real-world-blur.jpg" alt="Comparison of robot-arm, beam-splitter, synthetic, and GS-RealBlur data-acquisition pipelines">
             <figcaption>GS-RealBlur bridges blur realism and acquisition flexibility.</figcaption>
           </figure>
         </div>
@@ -50,7 +50,7 @@
           The sharp frames are used to reconstruct a 3DGS representation, while each blurry frame is initially localized within the reconstructed scene using GLOMAP.
           Since blur degrades feature matching and leads to inaccurate pose estimation, we further introduce BPR to refine the camera pose by jointly enforcing appearance loss and blur-kernel centroid regularizer. The optimized pose is then used to render a spatially aligned sharp image, enabling flexible acquisition of high-quality blurry--sharp pairs while preserving real-world blur.</p>
           <figure>
-            <img src="assets/images/pipeline.png" alt="GS-RealBlur capture, reconstruction, and Blur-aware Pose Refinement pipeline">
+            <img src="assets/images/pipeline.jpg" alt="GS-RealBlur capture, reconstruction, and Blur-aware Pose Refinement pipeline">
             <figcaption>Handheld blur capture, multi-view sharp reconstruction, and Blur-aware Pose Refinement(BPR) form the acquisition pipeline.</figcaption>
           </figure>
         </div>
@@ -77,7 +77,7 @@
           <p>On RWBI and DVD-Test, GS-RealBlur achieves the highest scores across all six reported no-reference metrics, demonstrating robust perceptual quality beyond the training-domain benchmarks.</p>
           <div id="ood-results"></div>
           <figure>
-            <img src="assets/images/nr-metric.png" alt="OOD visual comparison across real-world in-the-wild scenes">
+            <img src="assets/images/nr-metric.jpg" alt="OOD visual comparison across real-world in-the-wild scenes">
             <figcaption>OOD visual comparison on RWBI and DVD-Test.</figcaption>
           </figure>
         </article>
@@ -102,7 +102,7 @@
             </table>
           </div>
           <figure>
-            <img src="assets/images/BPR_compare.png" alt="Alignment improvement from Blur-aware Pose Refinement">
+            <img src="assets/images/BPR_compare.jpg" alt="Alignment improvement from Blur-aware Pose Refinement">
             <figcaption>BPR reduces spatial misalignment.</figcaption>
           </figure>
         </article>
